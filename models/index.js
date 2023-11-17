@@ -1,19 +1,29 @@
-const Traveller = require('./traveller');
-const Location = require('./location');
-const Trip = require('./trip');
+const Traveller = require('./Traveller');
+const Location = require('./Location');
+const Trip = require('./Trip');
 
 Traveller.belongsToMany(Location, {
-    through:"Trip",
-    foreignKey: 'Traveller_id',
-    onDelete: 'CASCADE',
+    through: {
+        model: Trip,
+        unique: false
+    },
+    as: 'destinations'
 });
 
 
 Location.belongsToMany(Traveller, {
-    through:"Trip",
-    foreignKey: 'location_id',
-    onDelete: 'CASCADE',
+    through: {
+        model: Trip,
+        unique: false
+    },
+    as: 'tourists'
 });
+
+Traveller.hasMany(Trip);
+Trip.belongsTo(Traveller);
+Location.hasMany(Trip);
+Trip.belongsTo(Location);
+
 
 
 module.exports = { Traveller, Location, Trip };
