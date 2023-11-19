@@ -34,7 +34,6 @@ Traveller.init(
   },
   {
     hooks: {
-      // Use the beforeCreate hook to work with data before a new instance is created
       beforeCreate: async (newUserData) => {
         // In this case, we are taking the user's email address, and making all letters lower case before adding it to the database.
         newUserData.email = await newUserData.email.toLowerCase();
